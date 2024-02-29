@@ -1,0 +1,259 @@
+[gd_scene load_steps=12 format=3 uid="uid://bypu2kq7fgfk4"]
+
+[ext_resource type="Script" uid="uid://dbfalnw6dp8dr" path="res://Scripts/Main.gd" id="1_main"]
+[ext_resource type="Script" path="res://Scripts/HUD.gd" id="9_hud"]
+[ext_resource type="Script" path="res://Scripts/ScreenShake.gd" id="10_shake"]
+[ext_resource type="PackedScene" uid="uid://cll5sifvfx5sm" path="res://Scenes/Player.tscn" id="2_player"]
+[ext_resource type="Script" uid="uid://b7ir05sajsyke" path="res://Scripts/EnemySpawner.gd" id="3_spawner"]
+[ext_resource type="PackedScene" uid="uid://djj6lqxbpqlh8" path="res://Scenes/Enemy.tscn" id="4_enemy"]
+[ext_resource type="PackedScene" uid="uid://bfh2v8xlkjq4l" path="res://Scenes/PowerUp.tscn" id="5_powerup"]
+[ext_resource type="Script" uid="uid://d1ffjn8ideehg" path="res://Scripts/Managers/GameManager.gd" id="6_gamemanager"]
+[ext_resource type="Shader" path="res://Shaders/BackgroundEffect.gdshader" id="7_bg"]
+[ext_resource type="PackedScene" uid="uid://c0boss1storm01" path="res://Scenes/Boss.tscn" id="8_boss"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bg"]
+shader = ExtResource("7_bg")
+
+[node name="Main" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_main")
+
+[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Background" type="ColorRect" parent="BackgroundLayer"]
+material = SubResource("ShaderMaterial_bg")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(240, 600)
+
+[node name="EnemySpawner" type="Node2D" parent="."]
+script = ExtResource("3_spawner")
+enemy_scene = ExtResource("4_enemy")
+boss_scene = ExtResource("8_boss")
+powerup_scene = ExtResource("5_powerup")
+
+[node name="SpawnTimer" type="Timer" parent="EnemySpawner"]
+wait_time = 2.0
+
+[node name="GameManager" type="Node" parent="." groups=["game_manager"]]
+script = ExtResource("6_gamemanager")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(240, 360)
+script = ExtResource("10_shake")
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("9_hud")
+
+[node name="ScoreLabel" type="Label" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -150.0
+offset_bottom = 40.0
+text = "Score: 0"
+
+[node name="WaveLabel" type="Label" parent="UI"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 160.0
+offset_bottom = 40.0
+text = "Wave: 1"
+
+[node name="GrazeLabel" type="Label" parent="UI"]
+offset_left = 10.0
+offset_top = 44.0
+offset_right = 160.0
+offset_bottom = 74.0
+theme_override_colors/font_color = Color(0.6, 0.9, 1, 1)
+text = "Graze: 0"
+
+[node name="ComboLabel" type="Label" parent="UI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -120.0
+offset_top = 50.0
+offset_right = 120.0
+offset_bottom = 80.0
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+text = "COMBO x2  (3)"
+horizontal_alignment = 1
+
+[node name="HealthBar" type="ProgressBar" parent="UI"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -30.0
+offset_right = 200.0
+value = 100.0
+
+[node name="BombLabel" type="Label" parent="UI"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -30.0
+offset_right = -10.0
+offset_bottom = 0.0
+theme_override_colors/font_color = Color(1, 0.8, 0.3, 1)
+text = "Bombs: 3"
+horizontal_alignment = 2
+
+[node name="SpellCardLabel" type="Label" parent="UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 120.0
+offset_right = 200.0
+offset_bottom = 150.0
+theme_override_colors/font_color = Color(1, 0.5, 0.8, 1)
+text = ""
+horizontal_alignment = 1
+
+[node name="ControlsHint" type="Label" parent="UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -210.0
+offset_top = 200.0
+offset_right = 210.0
+offset_bottom = 230.0
+theme_override_colors/font_color = Color(0.8, 0.85, 0.95, 1)
+text = ""
+horizontal_alignment = 1
+
+[node name="BossHealthBar" type="ProgressBar" parent="UI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 90.0
+offset_right = 200.0
+offset_bottom = 108.0
+max_value = 120.0
+value = 120.0
+show_percentage = false
+
+[node name="FlashOverlay" type="ColorRect" parent="UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(1, 1, 1, 0)
+mouse_filter = 2
+
+[node name="GameOverPanel" type="Panel" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = -105.0
+offset_right = 110.0
+offset_bottom = 110.0
+
+[node name="FinalScoreLabel" type="Label" parent="UI/GameOverPanel"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = -75.0
+offset_right = 90.0
+offset_bottom = -50.0
+text = "Final Score: 0"
+horizontal_alignment = 1
+
+[node name="ScrapLabel" type="Label" parent="UI/GameOverPanel"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = -45.0
+offset_right = 90.0
+offset_bottom = -20.0
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+text = "Scrap: +0"
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="UI/GameOverPanel"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = 0.0
+offset_right = 50.0
+offset_bottom = 30.0
+text = "Restart"
+
+[node name="MenuButton" type="Button" parent="UI/GameOverPanel"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = 40.0
+offset_right = 50.0
+offset_bottom = 70.0
+text = "Menu"
+
+[node name="PausePanel" type="Panel" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -90.0
+offset_right = 100.0
+offset_bottom = 90.0
+
+[node name="PauseLabel" type="Label" parent="UI/PausePanel"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -65.0
+offset_right = 50.0
+offset_bottom = -35.0
+text = "PAUSED"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="UI/PausePanel"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -20.0
+offset_right = 60.0
+offset_bottom = 10.0
+text = "Resume"
+
+[node name="PauseMenuButton" type="Button" parent="UI/PausePanel"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = 25.0
+offset_right = 60.0
+offset_bottom = 55.0
+text = "Menu"

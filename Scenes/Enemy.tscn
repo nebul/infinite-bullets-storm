@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://djj6lqxbpqlh8"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_enemy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1e7fg"]
+size = Vector2(24, 24)
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
+script = ExtResource("1_enemy")
+
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1e7fg")
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="BulletSpawn" type="Marker2D" parent="."]
+position = Vector2(0, 15)

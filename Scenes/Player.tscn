@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://cll5sifvfx5sm"]
+
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_ckrco"]
+[ext_resource type="PackedScene" uid="uid://cnhvx8qjklm9p" path="res://Scenes/HomingMissile.tscn" id="3_homing"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1t7fg"]
+size = Vector2(32, 32)
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+script = ExtResource("1_ckrco")
+homing_missile_scene = ExtResource("3_homing")
+
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1t7fg")
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+wait_time = 1.0
+one_shot = true
+
+[node name="BulletSpawn" type="Marker2D" parent="."]
+position = Vector2(0, -20)
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]

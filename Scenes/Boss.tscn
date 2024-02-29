@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0boss1storm01"]
+
+[ext_resource type="Script" path="res://Scripts/Boss.gd" id="1_boss"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_boss"]
+size = Vector2(80, 60)
+
+[node name="Boss" type="CharacterBody2D" groups=["enemy"]]
+script = ExtResource("1_boss")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_boss")
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 1.2
+
+[node name="BulletSpawn" type="Marker2D" parent="."]
+position = Vector2(0, 35)

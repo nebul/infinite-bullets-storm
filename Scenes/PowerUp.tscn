@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfh2v8xlkjq4l"]
+
+[ext_resource type="Script" path="res://Scripts/PowerUp.gd" id="1_powerup"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1p7gn"]
+size = Vector2(16, 16)
+
+[node name="PowerUp" type="Area2D"]
+script = ExtResource("1_powerup")
+
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1p7gn")

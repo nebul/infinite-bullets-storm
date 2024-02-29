@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnhvx8qjklm9p"]
+
+[ext_resource type="Script" path="res://Scripts/HomingMissile.gd" id="1_homing"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1h8gn"]
+size = Vector2(8, 16)
+
+[node name="HomingMissile" type="Area2D"]
+script = ExtResource("1_homing")
+
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1h8gn")
