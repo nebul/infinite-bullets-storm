@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://w23i82rs0w8k"]
+
+[ext_resource type="Script" path="res://mob.gd" id="1_65hfb"]
+
+[node name="Mob" type="RigidBody2D"]
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_65hfb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+enable_node_path = NodePath("../CollisionPolygon2D")

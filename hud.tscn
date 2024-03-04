@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://dabbdndalxwm3"]
+
+[ext_resource type="Script" path="res://hud.gd" id="1_ktxyt"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_ktxyt")
+
+[node name="ScoreLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "0"
+
+[node name="Message" type="Label" parent="."]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartButton" type="Button" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Start"
+
+[node name="MessageTimer" type="Timer" parent="."]
