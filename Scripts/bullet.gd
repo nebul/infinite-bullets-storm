@@ -1,17 +1,14 @@
 extends Area2D
 
-#@export var texture_array : Array[Texture2D]
-
-var direction = Vector2.RIGHT
 var speed = 100
+var direction = Vector2.RIGHT
 var bullet_type: int = 0
 
-	
-func _physics_process(delta):
-		position += direction * delta *speed
+#@export var texture_array : Array[Texture2D]
 
-func _on_screen_exited():
-	queue_free()
+func set_property(type):
+	bullet_type = type
+#	$Sprite2D.texture = texture_array[type]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,10 +17,12 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass # Replace with function body.
-	
-func set_property(type):
-	bullet_type = type
-#	$Sprite2D.texture = texture_array[type]
+
+func _physics_process(delta):
+	position += direction * delta *speed
 
 func _on_body_entered(body):
 	body.set_status(bullet_type)
+	
+func _on_screen_exited():
+	queue_free()

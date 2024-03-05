@@ -9,10 +9,6 @@ var health = 100:
 		health = value
 		progress_bar.value = value
 
-func _physics_process(delta):
-	velocity = Input.get_vector("ui_left","ui_right","ui_up","ui_down") * speed
-	move_and_slide()
-
 func set_status(bullet_type):
 	match bullet_type:
 		0: fire()
@@ -40,4 +36,14 @@ func stun():
 		await get_tree().create_timer(2.5).timeout
 		speed=250
 
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
 
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass # Replace with function body.*
+
+func _physics_process(delta):
+	velocity = Input.get_vector("ui_left","ui_right","ui_up","ui_down") * speed
+	move_and_slide()

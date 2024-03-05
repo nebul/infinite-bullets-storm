@@ -9,14 +9,6 @@ class_name State
 
 var can_transition : bool = false
 
-func _on_duration_timeout():
-	can_transition = true
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	set_physics_process(false)
-	duration.timeout.connect(_on_duration_timeout)
-
 func enter():
 	set_physics_process(true)
 	can_transition = false
@@ -28,10 +20,18 @@ func exit():
 func transition():
 	pass
 
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	set_physics_process(false)
+	duration.timeout.connect(_on_duration_timeout)
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass # Replace with function body.*
+
 func _physics_process(_delta):
 	transition()
 	debug.text = name
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _on_duration_timeout():
+	can_transition = true

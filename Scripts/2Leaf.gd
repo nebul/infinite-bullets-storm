@@ -4,7 +4,6 @@ func enter():
 	super.enter()
 	owner.alpha = 3
 	owner.bullet_type = 3
-	speed.start()
 
 func transition():
 	if can_transition:
@@ -14,7 +13,6 @@ func transition():
 func _ready():
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	pass # Replace with function body.*

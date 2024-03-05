@@ -1,9 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://k712ikt7isba"]
+[gd_scene load_steps=11 format=3 uid="uid://w23i82rs0w8k"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_ueb5h"]
 [ext_resource type="PackedScene" uid="uid://xml52v8kqori" path="res://Scenes/bullet.tscn" id="2_flk63"]
-[ext_resource type="Script" path="res://Scripts/FiniteStateMachine.gd" id="3_twrmy"]
-[ext_resource type="Script" path="res://Scripts/Idle.gd" id="4_xniij"]
+[ext_resource type="Script" path="res://Scripts/finiteStateMachine.gd" id="3_qhpgj"]
+[ext_resource type="Script" path="res://Scripts/idle.gd" id="4_w3rm6"]
 [ext_resource type="Script" path="res://Scripts/5Leaf.gd" id="5_x5sde"]
 [ext_resource type="Script" path="res://Scripts/4Leaf.gd" id="6_wim1s"]
 [ext_resource type="Script" path="res://Scripts/3Leaf.gd" id="7_2mg0c"]
@@ -15,11 +15,10 @@ size = Vector2(20, 20)
 [sub_resource type="CircleShape2D" id="CircleShape2D_xittr"]
 radius = 200.0
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Mob" type="CharacterBody2D"]
 collision_mask = 0
 script = ExtResource("1_ueb5h")
 bullet_node = ExtResource("2_flk63")
-metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(1, 0.0313726, 1, 1)
@@ -45,22 +44,22 @@ unique_name_in_owner = true
 shape = SubResource("CircleShape2D_xittr")
 
 [node name="FiniteStateMachine" type="Node2D" parent="."]
-script = ExtResource("3_twrmy")
+script = ExtResource("3_qhpgj")
 
-[node name="Idle" type="Node2D" parent="FiniteStateMachine"]
-script = ExtResource("4_xniij")
-
-[node name="5Leaf" type="Node2D" parent="FiniteStateMachine"]
-script = ExtResource("5_x5sde")
-
-[node name="4Leaf" type="Node2D" parent="FiniteStateMachine"]
-script = ExtResource("6_wim1s")
+[node name="2Leaf" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource("8_ecu07")
 
 [node name="3Leaf" type="Node2D" parent="FiniteStateMachine"]
 script = ExtResource("7_2mg0c")
 
-[node name="2Leaf" type="Node2D" parent="FiniteStateMachine"]
-script = ExtResource("8_ecu07")
+[node name="4Leaf" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource("6_wim1s")
+
+[node name="5Leaf" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource("5_x5sde")
+
+[node name="Idle" type="Node2D" parent="FiniteStateMachine"]
+script = ExtResource("4_w3rm6")
 
 [connection signal="timeout" from="Speed" to="." method="_on_speed_timeout"]
 [connection signal="body_entered" from="PlayerDetection" to="FiniteStateMachine/Idle" method="_on_player_detection_body_entered"]
